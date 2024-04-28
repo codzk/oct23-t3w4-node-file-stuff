@@ -11,6 +11,22 @@ console.log("Sync output:" + doesFileExistSync("./pokemonStats.json"));
 
 })();
 
+
+/*
+
+async function to get pokemon data 
+
+await for result
+
+update the screen
+
+
+
+*/
+
+
+
+
 async function doesFileExistASync(targetPath){
 
     return await fsPromises.stat(targetPath);
@@ -80,17 +96,30 @@ function createJsonFile(targetPath, data){
 }
 
 
-function loadDataFromFile(targetPath){
+async function loadDataFromFile(targetPath){
     let data = null;
+    
+    let doesFileExist = await doesFileExistASync(targetPath);
 
-    // TODO: Load data from file logic goes here
-    // Reading data from files takes time
-    // promises or async/await
+    if (doesFileExist){
 
+        data = await fsPromises.readFile(targetPath, { encoding: 'utf-8'});
+        data = JSON.parse(data);
+
+    }
+
+    
 
 
     return data;
 }
+
+(async () =>{
+
+    let fileData = await loadDataFromFile("./pokemonStats.json");
+    console.log(fileData);
+
+})()
 
 /*
 Technique 1 to modify keys in JSON:
