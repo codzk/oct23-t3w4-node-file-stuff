@@ -5,8 +5,23 @@ const fsPromises = require("node:fs/promises");
 console.log("Promise output:" + doesFileExistPromise("./pokemonStats.json"));
 console.log("Sync output:" + doesFileExistSync("./pokemonStats.json"));
 
-function doesFileExistASync(targetPath){
-    
+(async()=> {
+    let asyncResult = await doesFileExistASync("./pokemonStats.json");
+    console.log("Async output:" + asyncResult.size);
+
+})();
+
+async function doesFileExistASync(targetPath){
+
+    return await fsPromises.stat(targetPath);
+    // let result = false;
+
+    // result = await fsPromises.stat(targetPath);
+
+    // return result;
+
+
+
 }
 
 function doesFileExistPromise(targetPath){
